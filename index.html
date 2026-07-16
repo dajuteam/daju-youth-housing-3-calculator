@@ -778,6 +778,252 @@
       line-height: 1.45;
     }
   }
+  .floating-line {
+    position: fixed;
+    right: 16px;
+    bottom: 16px;
+    z-index: 60;
+    width: min(340px, calc(100vw - 24px));
+    opacity: 0;
+    transform: translateY(14px);
+    pointer-events: none;
+    transition: opacity .25s ease, transform .25s ease;
+  }
+
+  .floating-line.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .floating-line__wrap {
+    position: relative;
+  }
+
+  .floating-line__close {
+    position: absolute;
+    top: -10px;
+    right: -4px;
+    width: 26px;
+    height: 26px;
+    border: 0;
+    border-radius: 999px;
+    background: rgba(52, 58, 64, .82);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 900;
+    line-height: 1;
+    cursor: pointer;
+    box-shadow: 0 8px 16px rgba(0,0,0,.18);
+    z-index: 2;
+  }
+
+  .floating-line__close:hover {
+    background: rgba(35, 39, 43, .94);
+  }
+
+  .floating-line__card {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 13px 14px;
+    border-radius: 20px;
+    background: rgba(255, 252, 248, .78);
+    border: 1px solid rgba(245, 130, 32, .16);
+    box-shadow: 0 14px 28px rgba(181, 109, 36, .18);
+    backdrop-filter: blur(12px);
+  }
+
+  .floating-line__card::after {
+    content: "";
+    position: absolute;
+    right: 18px;
+    bottom: -8px;
+    width: 16px;
+    height: 16px;
+    background: rgba(255, 252, 248, .78);
+    border-right: 1px solid rgba(245, 130, 32, .12);
+    border-bottom: 1px solid rgba(245, 130, 32, .12);
+    transform: rotate(45deg);
+    backdrop-filter: blur(12px);
+  }
+
+  .floating-line__icon {
+    flex: none;
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    display: grid;
+    place-items: center;
+    background: linear-gradient(135deg, #2fd66f, #06b14f);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: .04em;
+    box-shadow: 0 10px 18px rgba(6, 177, 79, .24);
+  }
+
+  .floating-line__text {
+    min-width: 0;
+    flex: 1;
+  }
+
+  .floating-line__tag {
+    display: inline-block;
+    margin-bottom: 4px;
+    padding: 3px 8px;
+    border-radius: 999px;
+    background: rgba(6, 177, 79, .10);
+    color: #0c8f45;
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: .05em;
+  }
+
+  .floating-line__title {
+    font-size: 13px;
+    line-height: 1.45;
+    color: #343a40;
+    font-weight: 900;
+  }
+
+  .floating-line__sub {
+    margin-top: 2px;
+    font-size: 11px;
+    line-height: 1.45;
+    color: #7d6558;
+  }
+
+  .floating-line__btn {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 72px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    background: #f58220;
+    color: #fff;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 900;
+    white-space: nowrap;
+    transition: transform .18s ease, background .18s ease;
+  }
+
+  .floating-line__btn:hover {
+    background: #e67316;
+    transform: translateY(-1px);
+  }
+
+  .result-anim {
+    animation: resultPop .45s ease;
+  }
+
+  .pulse-glow {
+    animation: pulseGlow .6s ease;
+  }
+
+  @keyframes resultPop {
+    0% { opacity: .45; transform: translateY(8px) scale(.985); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  @keyframes pulseGlow {
+    0%   { box-shadow: 0 0 0 rgba(245,130,32,0); }
+    40%  { box-shadow: 0 0 0 8px rgba(245,130,32,.10); }
+    100% { box-shadow: 0 0 0 rgba(245,130,32,0); }
+  }
+
+  @media (max-width: 760px) {
+    .floating-line {
+      right: 10px;
+      bottom: 10px;
+      width: calc(100vw - 20px);
+    }
+
+    .floating-line__close {
+      top: -8px;
+      right: -2px;
+    }
+
+    .floating-line__card {
+      gap: 10px;
+      padding: 11px 12px;
+      border-radius: 18px;
+    }
+
+    .floating-line__icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      font-size: 10px;
+    }
+
+    .floating-line__title {
+      font-size: 12px;
+    }
+
+    .floating-line__sub {
+      font-size: 10px;
+    }
+
+    .floating-line__btn {
+      min-width: 64px;
+      padding: 9px 10px;
+      font-size: 11px;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .floating-line__sub {
+      display: none;
+    }
+  }
+.brand-divider{
+    position:relative;
+    overflow:hidden;
+    margin:6px 0 14px;
+    padding:9px 0;
+    border-top:1px solid rgba(245,130,32,.16);
+    border-bottom:1px solid rgba(245,130,32,.16);
+    background:linear-gradient(90deg, rgba(255,247,238,.25), rgba(255,247,238,.78), rgba(255,247,238,.25));
+    color:#b56d24;
+    font-size:13px;
+    font-weight:900;
+    letter-spacing:.04em;
+    white-space:nowrap;
+  }
+
+  .brand-divider__track{
+    display:inline-flex;
+    min-width:max-content;
+    gap:48px;
+    padding-left:100%;
+    animation:brandMarquee 18s linear infinite;
+    will-change:transform;
+  }
+
+  .brand-divider:hover .brand-divider__track{
+    animation-play-state:paused;
+  }
+
+  .brand-divider__item{
+    display:inline-block;
+  }
+
+  @keyframes brandMarquee{
+    from{transform:translateX(0)}
+    to{transform:translateX(-50%)}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .brand-divider__track{
+      animation:none;
+      padding-left:0;
+    }
+  }
 
 </style>
 </head>
@@ -811,7 +1057,7 @@
             <div>
               <span class="eyebrow">BASIC PROFILE</span>
               <h2>基本條件設定</h2>
-              <p>先輸入申請人背景資料，系統會即時檢查主要門檻。</p>
+              <p>由大橘團隊整理主要申貸門檻，輸入後即可即時查看試算結果。</p>
             </div>
           </div>
         </div>
@@ -819,14 +1065,14 @@
         <div class="field">
           <label class="flabel"><span>你的年齡</span><span class="val" id="ageVal">32 歲</span></label>
           <input type="range" id="age" min="20" max="55" value="32" step="1">
-          <div class="hint">政策試算採用：申貸時未滿 50 歲，並同步以「年齡＋貸款年限」控制最長可貸年數。</div>
+          <div class="hint">大橘團隊提醒：本頁先依公開政策條件試算，年齡與可貸年限會連動調整。</div>
         </div>
 
         <div class="grid-2">
           <div class="field">
             <label class="flabel"><span>本人年所得（萬元）</span></label>
             <div class="input-shell"><input type="number" id="income" value="120" min="0" step="10"></div>
-            <div class="hint">本頁僅以借款人本人所得試算，不併計配偶收入。</div>
+            <div class="hint">大橘團隊提醒：本頁先以借款人本人所得試算，實際送件仍以銀行認列為準。</div>
           </div>
 
           <div class="field">
@@ -848,14 +1094,21 @@
         </div>
       </section>
 
-      <section class="panel">
+      <div class="brand-divider">
+        <div class="brand-divider__track">
+          <span class="brand-divider__item">— 大橘團隊｜台中房地產全攻略 —</span>
+          <span class="brand-divider__item">— 大橘團隊｜有空來大橘官網坐坐 —</span>
+         </div>
+      </div>
+
+      <section class="panel" id="propertySection">
         <div class="section-head">
           <div class="title-wrap">
             <div class="title-mark"></div>
             <div>
               <span class="eyebrow">PROPERTY DATA</span>
               <h2>購屋條件設定</h2>
-              <p>房屋總價、銀行鑑價與貸款年限，會直接影響可貸成數與月付結果。</p>
+              <p>大橘團隊幫你把關重點條件，房價、鑑價與貸款年限都會直接影響試算結果。</p>
             </div>
           </div>
         </div>
@@ -873,13 +1126,13 @@
           <div class="field">
             <label class="flabel"><span>房屋總價（萬元）</span></label>
             <div class="input-shell"><input type="number" id="price" value="1280" min="100" step="10"></div>
-            <div class="hint">買賣總價超過該區上限時，將視為不符本頁試算條件。</div>
+            <div class="hint">大橘團隊提醒：若買賣總價超過該區試算上限，系統會視為不符合本頁條件。</div>
           </div>
 
           <div class="field">
             <label class="flabel"><span>銀行鑑價（萬元）</span></label>
             <div class="input-shell"><input type="number" id="appraisal" value="" min="0" step="10" placeholder="尚未鑑價可留白"></div>
-            <div class="hint">尚未進入鑑價階段可留白，系統會先以房屋總價試算；填入後則改採總價與鑑價較低者。</div>
+            <div class="hint">大橘團隊建議：尚未進入鑑價階段可先留白，系統會以房屋總價試算；填入後再改採總價與鑑價較低者。</div>
           </div>
         </div>
 
@@ -893,14 +1146,14 @@
           <div class="field">
             <label class="flabel"><span>寬限期</span><span class="val" id="graceVal">0 年</span></label>
             <input type="range" id="grace" min="0" max="5" value="0" step="1">
-            <div class="hint">寬限期內僅繳利息，不償還本金。</div>
+            <div class="hint">大橘團隊提醒：寬限期內通常僅繳利息，不償還本金。</div>
           </div>
         </div>
 
         <div class="callout" style="margin-top:18px">
           <div class="callout-icon">i</div>
           <p>
-            本工具採「公開政策參數」進行初步試算。是否符合正式申請資格、最終可貸年限、成數、
+            本工具由大橘團隊依公開政策參數整理為初步試算。是否符合正式申請資格、最終可貸年限、成數、
             利率與寬限條件，仍需以財政部最新公告及承貸銀行審核結果為準。
           </p>
         </div>
@@ -915,13 +1168,21 @@
             <div>
               <span class="eyebrow">ELIGIBILITY</span>
               <h2>資格檢查</h2>
-              <p>即時檢查核心條件，快速辨識是否落在可申貸範圍。</p>
+              <p>大橘團隊即時幫你核對核心門檻，快速判斷是否落在可申貸範圍。</p>
             </div>
           </div>
         </div>
         <div class="lights" id="lights"></div>
         <div class="verdict" id="verdict"></div>
       </section>
+
+      <div class="brand-divider">
+        <div class="brand-divider__track">
+          <span class="brand-divider__item">— 大橘愛你｜台中專業房地產顧問 —</span>
+          <span class="brand-divider__item">— 大橘愛你｜台中最強房地產團隊 —</span>
+
+        </div>
+      </div>
 
       <div id="resultZone">
         <section class="panel">
@@ -931,23 +1192,23 @@
               <div>
                 <span class="eyebrow">LOAN OVERVIEW</span>
                 <h2>可貸額度概覽</h2>
-                <p>以房價／鑑價較低者估算 8 成，再與身分額度上限交叉比較。</p>
+                <p>大橘團隊以房價／鑑價較低者估算 8 成，再與身分額度上限交叉比較。</p>
               </div>
             </div>
           </div>
 
           <div class="stats">
-            <div class="stat">
+            <div class="stat result-card">
               <span class="k">可貸金額</span>
               <div class="v" id="loanAmt">—</div>
               <div class="u" id="loanNote"></div>
             </div>
-            <div class="stat">
+            <div class="stat result-card">
               <span class="k">自備款需求</span>
               <div class="v" id="downPay">—</div>
               <div class="u">總價 − 預估可貸金額</div>
             </div>
-            <div class="stat">
+            <div class="stat result-card">
               <span class="k">實際成數</span>
               <div class="v" id="ltv">—</div>
               <div class="u">試算上限 8 成</div>
@@ -963,7 +1224,7 @@
               <div>
                 <span class="eyebrow">MONTHLY PAYMENT</span>
                 <h2>每月繳款試算</h2>
-                <p>依利率退場階段逐段重算，顯示各時期可能月付變化。</p>
+                <p>大橘團隊依利率退場節奏逐段重算，協助你掌握各時期可能的月付變化。</p>
               </div>
             </div>
           </div>
@@ -982,15 +1243,15 @@
           </div>
 
           <div class="totals">
-            <div class="tot">
+            <div class="tot result-card">
               <span class="t">前期月付</span>
               <span class="n" id="firstPay">—</span>
             </div>
-            <div class="tot">
+            <div class="tot result-card">
               <span class="t">最高月付</span>
               <span class="n" id="maxPay">—</span>
             </div>
-            <div class="tot">
+            <div class="tot result-card">
               <span class="t">全期總利息</span>
               <span class="n" id="totalInt">—</span>
             </div>
@@ -1088,6 +1349,58 @@ function monthLabel(from, to) {
 }
 
 
+
+function animateValue(el, end, formatter, duration = 520) {
+  if (!el) return;
+  const start = Number(el.dataset.prevValue || 0);
+  const finalValue = Number.isFinite(end) ? end : 0;
+  const startTime = performance.now();
+
+  if (Math.abs(finalValue - start) < 0.5) {
+    el.textContent = formatter(finalValue);
+    el.dataset.prevValue = finalValue;
+    return;
+  }
+
+  function frame(now) {
+    const progress = Math.min((now - startTime) / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    const value = start + (finalValue - start) * eased;
+    el.textContent = formatter(value);
+    if (progress < 1) {
+      requestAnimationFrame(frame);
+    } else {
+      el.dataset.prevValue = finalValue;
+      el.textContent = formatter(finalValue);
+    }
+  }
+  requestAnimationFrame(frame);
+}
+
+function animateResultCards() {
+  document.querySelectorAll('.result-card').forEach((card, index) => {
+    card.classList.remove('result-anim', 'pulse-glow');
+    void card.offsetWidth;
+    setTimeout(() => {
+      card.classList.add('result-anim', 'pulse-glow');
+    }, index * 40);
+  });
+}
+
+function closeFloatingLine() {
+  const floating = $('floatingLine');
+  if (!floating) return;
+  floating.classList.remove('show');
+  try { localStorage.setItem('dajuteamFloatingClosed', '1'); } catch (e) {}
+}
+
+function bindFloatingLineClose() {
+  const btn = $('floatingLineClose');
+  if (!btn || btn.dataset.bound === '1') return;
+  btn.dataset.bound = '1';
+  btn.addEventListener('click', closeFloatingLine);
+}
+
 function render() {
   const age = Number($('age').value);
   const income = Number($('income').value);
@@ -1147,12 +1460,12 @@ function render() {
   const loanWan = Math.min(byLtv, famCap);
   const capped = byLtv > famCap;
 
-  $('loanAmt').textContent = fmtWan(loanWan);
+  animateValue($('loanAmt'), loanWan, v => fmtWan(v));
   $('loanNote').textContent = capped
     ? `受身分額度上限 ${fmtWan(famCap)} 影響`
     : (appraisal === null ? '尚未鑑價，先以房屋總價試算' : '依房價／鑑價較低者試算');
-  $('downPay').textContent = fmtWan(Math.max(0, price - loanWan));
-  $('ltv').textContent = price > 0 ? (loanWan / price * 100).toFixed(0) + '%' : '0%';
+  animateValue($('downPay'), Math.max(0, price - loanWan), v => fmtWan(v));
+  animateValue($('ltv'), price > 0 ? (loanWan / price * 100) : 0, v => Math.round(v) + '%');
   $('capHint').textContent = capped
     ? `${appraisal === null ? '目前先以房屋總價' : '依房價與鑑價較低者'}估算，8 成約為 ${fmtWan(byLtv)}；但你的優惠額度上限為 ${fmtWan(famCap)}，超出部分需另以自備款或一般房貸處理。`
     : `${appraisal === null ? '尚未填入銀行鑑價，目前先以房屋總價' : '本頁以房屋總價與銀行鑑價較低者'}作為試算基礎，約可估 8 成。`;
@@ -1171,9 +1484,9 @@ function render() {
   const firstPay = groups.length ? groups[0].pay : 0;
   const maxPay = groups.length ? Math.max(...groups.map(g => g.pay)) : 0;
 
-  $('firstPay').textContent = fmt(firstPay) + ' 元';
-  $('maxPay').textContent = fmt(maxPay) + ' 元';
-  $('totalInt').textContent = fmtWan(totalInterest / 10000);
+  animateValue($('firstPay'), firstPay, v => fmt(v) + ' 元');
+  animateValue($('maxPay'), maxPay, v => fmt(v) + ' 元');
+  animateValue($('totalInt'), totalInterest / 10000, v => fmtWan(v));
 
   const burden = income > 0 ? (maxPay * 12) / (income * 10000) : 0;
   const bw = $('burdenWarn');
@@ -1183,6 +1496,8 @@ function render() {
   } else {
     bw.style.display = 'none';
   }
+
+  animateResultCards();
 }
 
 ['age', 'income', 'price', 'appraisal', 'years', 'grace'].forEach(id => {
@@ -1199,7 +1514,54 @@ function render() {
   });
 });
 
+
+function toggleFloatingLine() {
+  const floating = $('floatingLine');
+  const propertySection = $('propertySection');
+  if (!floating || !propertySection) return;
+
+  let closed = false;
+  try { closed = localStorage.getItem('dajuteamFloatingClosed') === '1'; } catch (e) {}
+
+  if (closed) {
+    floating.classList.remove('show');
+    return;
+  }
+
+  // 滾動到「購屋條件設定」區塊接近畫面時才顯示。
+  const triggerPoint = propertySection.getBoundingClientRect().top;
+  const visibleThreshold = window.innerHeight * 0.72;
+
+  if (triggerPoint <= visibleThreshold) {
+    floating.classList.add('show');
+  } else {
+    floating.classList.remove('show');
+  }
+}
+
+window.addEventListener('scroll', toggleFloatingLine, { passive: true });
+window.addEventListener('resize', toggleFloatingLine, { passive: true });
+window.addEventListener('load', () => { bindFloatingLineClose(); toggleFloatingLine(); });
+
+bindFloatingLineClose();
 render();
+toggleFloatingLine();
 </script>
+
+<div class="floating-line" id="floatingLine">
+  <div class="floating-line__wrap">
+    <button class="floating-line__close" id="floatingLineClose" aria-label="關閉提示">×</button>
+    <div class="floating-line__card">
+      <div class="floating-line__icon">LINE</div>
+      <div class="floating-line__text">
+        <div class="floating-line__tag">大橘客服</div>
+        <div class="floating-line__title">買屋賣屋、貸款問題歡迎洽詢大橘專業總機</div>
+        <div class="floating-line__sub">大橘團隊即時協助你掌握買屋、賣屋與貸款問題</div>
+      </div>
+      <a class="floating-line__btn" href="https://line.me/R/ti/p/@265ckfky" target="_blank" rel="noopener noreferrer">立即洽詢</a>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
