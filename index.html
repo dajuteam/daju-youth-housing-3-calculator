@@ -628,6 +628,157 @@
     .panel{padding:20px}
     .section-head h2{font-size:21px}
   }
+
+  /* RWD overflow fixes */
+  html, body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip;
+  }
+
+  .shell,
+  .layout,
+  main,
+  aside,
+  .panel,
+  .grid-2,
+  .field,
+  .section-head,
+  .title-wrap,
+  .table-shell,
+  footer {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .panel,
+  .hero,
+  footer {
+    width: 100%;
+  }
+
+  .flabel span,
+  .section-head h2,
+  .section-head p,
+  .hint,
+  .light .c,
+  .mini-note,
+  .warnbox,
+  footer,
+  footer a {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  input,
+  button,
+  table {
+    max-width: 100%;
+  }
+
+  @media (max-width: 760px) {
+    body { overflow-x: hidden; }
+
+    .shell {
+      width: 100%;
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+
+    .hero,
+    .panel,
+    footer {
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .hero::before,
+    .hero::after,
+    .house-geo {
+      display: none;
+    }
+
+    .section-head,
+    .title-wrap {
+      width: 100%;
+      min-width: 0;
+    }
+
+    label.flabel {
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .flabel .val {
+      white-space: normal;
+    }
+
+    .seg button {
+      width: 100%;
+      min-width: 0;
+    }
+
+    .table-shell {
+      overflow-x: hidden;
+    }
+
+    table.sched {
+      min-width: 0;
+      width: 100%;
+      table-layout: fixed;
+    }
+
+    .sched th,
+    .sched td {
+      padding: 10px 5px;
+      font-size: 12px;
+      white-space: normal;
+      overflow-wrap: anywhere;
+    }
+
+    .sched th:nth-child(1),
+    .sched td:nth-child(1) { width: 36%; }
+
+    .sched th:nth-child(2),
+    .sched td:nth-child(2) { width: 24%; }
+
+    .sched th:nth-child(3),
+    .sched td:nth-child(3) { width: 40%; }
+
+    footer .links {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      align-items: center;
+    }
+
+    footer .sep { display: none; }
+  }
+
+  @media (max-width: 380px) {
+    .shell {
+      padding-left: 8px;
+      padding-right: 8px;
+    }
+
+    .hero,
+    .panel {
+      padding-left: 14px;
+      padding-right: 14px;
+    }
+
+    .hero h1 {
+      font-size: 24px;
+    }
+
+    .badge {
+      max-width: 100%;
+      white-space: normal;
+      text-align: center;
+      line-height: 1.45;
+    }
+  }
+
 </style>
 </head>
 <body>
@@ -727,8 +878,8 @@
 
           <div class="field">
             <label class="flabel"><span>銀行鑑價（萬元）</span></label>
-            <div class="input-shell"><input type="number" id="appraisal" value="1280" min="100" step="10"></div>
-            <div class="hint">貸款成數通常會參考買賣總價與銀行鑑價較低者。</div>
+            <div class="input-shell"><input type="number" id="appraisal" value="" min="0" step="10" placeholder="尚未鑑價可留白"></div>
+            <div class="hint">尚未進入鑑價階段可留白，系統會先以房屋總價試算；填入後則改採總價與鑑價較低者。</div>
           </div>
         </div>
 
@@ -936,11 +1087,6 @@ function monthLabel(from, to) {
   return y1 === y2 ? `第 ${y1} 年` : `第 ${y1}–${y2} 年`;
 }
 
-let appraisalTouched = false;
-$('appraisal').addEventListener('input', () => { appraisalTouched = true; });
-$('price').addEventListener('input', () => {
-  if (!appraisalTouched) $('appraisal').value = $('price').value;
-});
 
 function render() {
   const age = Number($('age').value);
@@ -949,7 +1095,9 @@ function render() {
   const cityCap = segValue('citySeg');
   const homePass = segPass('homeSeg');
   const price = Number($('price').value);
-  const appraisal = Number($('appraisal').value);
+  const appraisalRaw = $('appraisal').value.trim();
+  const appraisalNum = appraisalRaw === '' ? null : Number(appraisalRaw);
+  const appraisal = appraisalNum !== null && Number.isFinite(appraisalNum) && appraisalNum > 0 ? appraisalNum : null;
   let years = Number($('years').value);
   const grace = Number($('grace').value);
 
@@ -969,13 +1117,13 @@ function render() {
 
   const passAge = age < 50;
   const passIncome = income <= 200;
-  const passPrice = price <= cityCap && appraisal <= cityCap;
+  const passPrice = price <= cityCap && (appraisal === null || appraisal <= cityCap);
 
   const checks = [
     { name: '持屋條件', pass: homePass, ok: '符合無自有住宅條件', bad: '目前持有住宅，請先確認換屋族認定方式' },
     { name: '年齡門檻', pass: passAge, ok: `未滿 50 歲（${age} 歲）`, bad: `已滿 50 歲，不在本頁試算範圍` },
     { name: '所得門檻', pass: passIncome, ok: '本人年所得未超過 200 萬', bad: '本人年所得超過 200 萬' },
-    { name: '房價門檻', pass: passPrice, ok: `總價與鑑價皆未超過 ${fmtWan(cityCap)}`, bad: `總價或鑑價超過 ${fmtWan(cityCap)}` }
+    { name: '房價門檻', pass: passPrice, ok: appraisal === null ? `房屋總價未超過 ${fmtWan(cityCap)}（尚未填鑑價）` : `總價與鑑價皆未超過 ${fmtWan(cityCap)}`, bad: `總價或鑑價超過 ${fmtWan(cityCap)}` }
   ];
 
   $('lights').innerHTML = checks.map(c => `
@@ -994,18 +1142,20 @@ function render() {
 
   $('resultZone').className = eligible ? '' : 'disabled-mask';
 
-  const collateralBase = Math.min(price, appraisal);
+  const collateralBase = appraisal === null ? price : Math.min(price, appraisal);
   const byLtv = collateralBase * 0.8;
   const loanWan = Math.min(byLtv, famCap);
   const capped = byLtv > famCap;
 
   $('loanAmt').textContent = fmtWan(loanWan);
-  $('loanNote').textContent = capped ? `受身分額度上限 ${fmtWan(famCap)} 影響` : '依房價／鑑價較低者試算';
+  $('loanNote').textContent = capped
+    ? `受身分額度上限 ${fmtWan(famCap)} 影響`
+    : (appraisal === null ? '尚未鑑價，先以房屋總價試算' : '依房價／鑑價較低者試算');
   $('downPay').textContent = fmtWan(Math.max(0, price - loanWan));
   $('ltv').textContent = price > 0 ? (loanWan / price * 100).toFixed(0) + '%' : '0%';
   $('capHint').textContent = capped
-    ? `提醒：依房價與鑑價較低者估算，8 成約為 ${fmtWan(byLtv)}；但你的優惠額度上限為 ${fmtWan(famCap)}，超出部分需另以自備款或一般房貸處理。`
-    : `本頁貸款額度試算基礎為 ${fmtWan(collateralBase)}，約可估 8 成。`;
+    ? `${appraisal === null ? '目前先以房屋總價' : '依房價與鑑價較低者'}估算，8 成約為 ${fmtWan(byLtv)}；但你的優惠額度上限為 ${fmtWan(famCap)}，超出部分需另以自備款或一般房貸處理。`
+    : `${appraisal === null ? '尚未填入銀行鑑價，目前先以房屋總價' : '本頁以房屋總價與銀行鑑價較低者'}作為試算基礎，約可估 8 成。`;
 
   const loanNTD = loanWan * 10000;
   const { groups, totalInterest } = simulate(loanNTD, years, grace);
