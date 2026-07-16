@@ -1025,6 +1025,78 @@
     }
   }
 
+
+  .basic-fail-panel{
+    display:none;
+    padding:22px;
+    border-radius:22px;
+    background:linear-gradient(180deg,#fffaf6,#fff1e7);
+    border:1px solid rgba(245,130,32,.18);
+    box-shadow:var(--shadow);
+    text-align:center;
+    margin-bottom:14px;
+  }
+
+  .basic-fail-panel.show{
+    display:block;
+    animation:resultPop .4s ease;
+  }
+
+  .basic-fail-icon{
+    width:54px;
+    height:54px;
+    margin:0 auto 12px;
+    border-radius:18px;
+    display:grid;
+    place-items:center;
+    background:linear-gradient(135deg,#ffad56,#f58220);
+    color:#fff;
+    font-size:25px;
+    font-weight:900;
+    box-shadow:0 12px 22px rgba(245,130,32,.22);
+  }
+
+  .basic-fail-panel h2{
+    color:#343a40;
+    font-size:22px;
+    font-weight:900;
+    line-height:1.35;
+    margin-bottom:8px;
+  }
+
+  .basic-fail-panel p{
+    color:#7d6558;
+    font-size:14px;
+    line-height:1.75;
+    max-width:620px;
+    margin:0 auto;
+  }
+
+  .basic-fail-btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    margin-top:16px;
+    padding:12px 18px;
+    border-radius:14px;
+    background:#f58220;
+    color:#fff;
+    font-size:14px;
+    font-weight:900;
+    text-decoration:none;
+    box-shadow:0 10px 18px rgba(245,130,32,.20);
+    transition:transform .18s ease, background .18s ease;
+  }
+
+  .basic-fail-btn:hover{
+    transform:translateY(-1px);
+    background:#e67316;
+  }
+
+  .flow-hidden{
+    display:none !important;
+  }
+
 </style>
 </head>
 <body>
@@ -1094,7 +1166,20 @@
         </div>
       </section>
 
-      <div class="brand-divider">
+
+      <section class="basic-fail-panel" id="basicFailPanel">
+        <div class="basic-fail-icon">!</div>
+        <h2>很抱歉，你目前不符合新青安 3.0 條件</h2>
+        <p>
+          不過每個人的購屋、賣屋與貸款狀況都不同，仍可請大橘團隊協助你評估一般房貸、
+          換屋資金安排或其他適合的買屋方案。
+        </p>
+        <a class="basic-fail-btn" href="https://line.me/R/ti/p/@265ckfky" target="_blank" rel="noopener noreferrer">
+          洽詢大橘專業總機
+        </a>
+      </section>
+
+      <div class="brand-divider" id="basicDivider">
         <div class="brand-divider__track" data-love-marquee></div>
       </div>
 
@@ -1157,7 +1242,7 @@
       </section>
     </main>
 
-    <aside class="side-stack">
+    <aside class="side-stack" id="resultAside">
       <section class="panel">
         <div class="section-head">
           <div class="title-wrap">
@@ -1173,7 +1258,7 @@
         <div class="verdict" id="verdict"></div>
       </section>
 
-      <div class="brand-divider">
+      <div class="brand-divider" id="resultDivider">
         <div class="brand-divider__track" data-love-marquee></div>
       </div>
 
@@ -1460,13 +1545,25 @@ function render() {
 
   const passAge = age < 50;
   const passIncome = income <= 200;
-  const passPrice = price <= cityCap && (appraisal === null || appraisal <= cityCap);
+  const basicEligible = homePass && passAge && passIncome;
+
+  const propertySection = $('propertySection');
+  const basicDivider = $('basicDivider');
+  const resultAside = $('resultAside');
+  const basicFailPanel = $('basicFailPanel');
+
+  [propertySection, basicDivider, resultAside].forEach(el => {
+    if (el) el.classList.toggle('flow-hidden', !basicEligible);
+  });
+  if (basicFailPanel) basicFailPanel.classList.toggle('show', !basicEligible);
+
+  const passPrice = basicEligible && price <= cityCap && (appraisal === null || appraisal <= cityCap);
 
   const checks = [
     { name: '持屋條件', pass: homePass, ok: '符合無自有住宅條件', bad: '目前持有住宅，請先確認換屋族認定方式' },
     { name: '年齡門檻', pass: passAge, ok: `未滿 50 歲（${age} 歲）`, bad: `已滿 50 歲，不在本頁試算範圍` },
     { name: '所得門檻', pass: passIncome, ok: '本人年所得未超過 200 萬', bad: '本人年所得超過 200 萬' },
-    { name: '房價門檻', pass: passPrice, ok: appraisal === null ? `房屋總價未超過 ${fmtWan(cityCap)}（尚未填鑑價）` : `總價與鑑價皆未超過 ${fmtWan(cityCap)}`, bad: `總價或鑑價超過 ${fmtWan(cityCap)}` }
+    { name: '房價門檻', pass: passPrice, ok: appraisal === null ? `房屋總價未超過 ${fmtWan(cityCap)}（尚未填鑑價）` : `總價與鑑價皆未超過 ${fmtWan(cityCap)}`, bad: basicEligible ? `總價或鑑價超過 ${fmtWan(cityCap)}` : '請先通過基本條件檢查' }
   ];
 
   $('lights').innerHTML = checks.map(c => `
@@ -1476,7 +1573,7 @@ function render() {
     </div>
   `).join('');
 
-  const eligible = homePass && passAge && passIncome && passPrice;
+  const eligible = basicEligible && passPrice;
   const verdict = $('verdict');
   verdict.className = 'verdict ' + (eligible ? 'ok' : 'bad');
   verdict.textContent = eligible
@@ -1484,6 +1581,10 @@ function render() {
     : '✕ 目前條件未完全符合本頁試算門檻，下方數值僅供參考';
 
   $('resultZone').className = eligible ? '' : 'disabled-mask';
+
+  if (!basicEligible) {
+    return;
+  }
 
   const collateralBase = appraisal === null ? price : Math.min(price, appraisal);
   const byLtv = collateralBase * 0.8;
@@ -1554,6 +1655,12 @@ function toggleFloatingLine() {
   try { closed = localStorage.getItem('dajuteamFloatingClosed') === '1'; } catch (e) {}
 
   if (closed) {
+    floating.classList.remove('show');
+    return;
+  }
+
+  const basicFailPanel = $('basicFailPanel');
+  if (basicFailPanel && basicFailPanel.classList.contains('show')) {
     floating.classList.remove('show');
     return;
   }
