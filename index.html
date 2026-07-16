@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>2026 新青安 3.0 貸款試算機｜大橘團隊</title>
+<title>大橘－新青安貸款與月付計算機</title>
 <style>
   :root{
     --bg:#fbf6f0;
@@ -1001,7 +1001,7 @@
     min-width:max-content;
     gap:48px;
     padding-left:100%;
-    animation:brandMarquee 18s linear infinite;
+    animation:brandMarquee 28s linear infinite;
     will-change:transform;
   }
 
@@ -1042,7 +1042,7 @@
     <div class="hero-top">
       <div>
         <div class="badge">大橘團隊｜2026 新青安 3.0 試算工具</div>
-        <h1>大橘-新青安 <span class="accent">3.0</span><br>貸款與月付計算機</h1>
+        <h1>大橘－新青安<br><span class="accent">貸款與月付計算機</span></h1>
         <p>內容依公開政策資訊建模，實際條件仍以官方與承貸銀行核定為準。</p>
       </div>
     </div>
@@ -1095,10 +1095,7 @@
       </section>
 
       <div class="brand-divider">
-        <div class="brand-divider__track">
-          <span class="brand-divider__item">— 大橘團隊｜台中房地產全攻略 —</span>
-          <span class="brand-divider__item">— 大橘團隊｜有空來大橘官網坐坐 —</span>
-         </div>
+        <div class="brand-divider__track" data-love-marquee></div>
       </div>
 
       <section class="panel" id="propertySection">
@@ -1177,11 +1174,7 @@
       </section>
 
       <div class="brand-divider">
-        <div class="brand-divider__track">
-          <span class="brand-divider__item">— 大橘愛你｜台中專業房地產顧問 —</span>
-          <span class="brand-divider__item">— 大橘愛你｜台中最強房地產團隊 —</span>
-
-        </div>
+        <div class="brand-divider__track" data-love-marquee></div>
       </div>
 
       <div id="resultZone">
@@ -1401,6 +1394,43 @@ function bindFloatingLineClose() {
   btn.addEventListener('click', closeFloatingLine);
 }
 
+
+const DAJU_LOVE_QUOTES = [
+  '大橘愛你｜買房不只算價格，更要算未來的安心',
+  '大橘愛你｜陪你找到適合的家，也找到剛好的生活',
+  '大橘愛你｜每一次看屋，都離理想生活更近一步',
+  '大橘愛你｜房子可以慢慢選，安心不能少一點',
+  '大橘愛你｜買屋賣屋有問題，大橘一直都在',
+  '大橘愛你｜重要的不只是成交，而是你住得安心',
+  '大橘愛你｜替你精算貸款，也替你多想一步',
+  '大橘愛你｜家的答案很多，大橘陪你找到最適合的'
+];
+
+function shuffledQuotes() {
+  const items = [...DAJU_LOVE_QUOTES];
+  for (let i = items.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [items[i], items[j]] = [items[j], items[i]];
+  }
+  return items;
+}
+
+function renderLoveMarquees() {
+  document.querySelectorAll('[data-love-marquee]').forEach((track, index) => {
+    const ordered = shuffledQuotes();
+
+    // 第二條跑馬燈再錯位，降低兩條同時看到相同句子的機率。
+    if (index > 0) {
+      ordered.push(...ordered.splice(0, 3));
+    }
+
+    const loopItems = [...ordered, ...ordered];
+    track.innerHTML = loopItems
+      .map(quote => `<span class="brand-divider__item">— ${quote} —</span>`)
+      .join('');
+  });
+}
+
 function render() {
   const age = Number($('age').value);
   const income = Number($('income').value);
@@ -1544,6 +1574,7 @@ window.addEventListener('resize', toggleFloatingLine, { passive: true });
 window.addEventListener('load', () => { bindFloatingLineClose(); toggleFloatingLine(); });
 
 bindFloatingLineClose();
+renderLoveMarquees();
 render();
 toggleFloatingLine();
 </script>
