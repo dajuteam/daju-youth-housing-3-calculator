@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-  <!-- Google tag (gtag.js) -->
+    <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-B12GVVT2QJ"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -454,7 +454,7 @@
 
   .stats{
     display:grid;
-    grid-template-columns:repeat(3,minmax(0,1fr));
+    grid-template-columns:repeat(2,minmax(0,1fr));
     gap:12px;
     margin-bottom:8px;
   }
@@ -1106,6 +1106,148 @@
     display:none !important;
   }
 
+
+  .stat.qingan-primary{
+    background:linear-gradient(135deg,#ffb25f 0%,#f58220 48%,#c85d0c 100%);
+    border:2px solid rgba(255,255,255,.38);
+    box-shadow:0 20px 34px rgba(245,130,32,.34);
+    transform:translateY(-2px);
+  }
+
+  .stat.qingan-primary .k{
+    color:#fff;
+    font-size:13px;
+    letter-spacing:.08em;
+  }
+
+  .stat.qingan-primary .v{
+    color:#fff;
+    text-shadow:0 2px 10px rgba(130,62,10,.18);
+  }
+
+  .stat.qingan-primary .u{
+    color:rgba(255,255,255,.82);
+  }
+
+  .stat.qingan-primary::before{
+    content:"新青安3.0主額度";
+    position:absolute;
+    top:10px;
+    right:10px;
+    padding:3px 7px;
+    border-radius:999px;
+    background:rgba(255,255,255,.18);
+    color:#fff;
+    font-size:10px;
+    font-weight:900;
+    letter-spacing:.04em;
+  }
+
+
+  .stats .stat .k{
+    font-size:14px;
+    line-height:1.35;
+  }
+
+  .stats .stat:nth-child(2) .k,
+  .stats .stat:nth-child(3) .k{
+    font-size:14px;
+  }
+
+  .stat.qingan-primary{
+    position:relative;
+    overflow:hidden;
+    min-height:152px;
+    padding:22px 18px 18px;
+    background:
+      radial-gradient(circle at 85% 18%, rgba(255,255,255,.34), transparent 26%),
+      linear-gradient(135deg,#ffbd72 0%,#ff922f 32%,#f37718 66%,#bd5108 100%);
+    border:2px solid rgba(255,255,255,.48);
+    box-shadow:
+      0 22px 38px rgba(224,103,18,.34),
+      inset 0 1px 0 rgba(255,255,255,.44);
+    transform:translateY(-4px);
+  }
+
+  .stat.qingan-primary::after{
+    content:"";
+    position:absolute;
+    width:120px;
+    height:120px;
+    right:-44px;
+    bottom:-52px;
+    border-radius:28px;
+    transform:rotate(28deg);
+    background:rgba(255,255,255,.10);
+    border:1px solid rgba(255,255,255,.16);
+  }
+
+  .stat.qingan-primary .k{
+    position:relative;
+    z-index:1;
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    color:#fff;
+    font-size:16px;
+    font-weight:950;
+    letter-spacing:.04em;
+  }
+
+  .stat.qingan-primary .k::before{
+    content:"✦";
+    display:inline-grid;
+    place-items:center;
+    width:23px;
+    height:23px;
+    border-radius:8px;
+    background:rgba(255,255,255,.18);
+    font-size:12px;
+  }
+
+  .stat.qingan-primary .v{
+    position:relative;
+    z-index:1;
+    margin-top:10px;
+    color:#fff;
+    font-size:34px;
+    line-height:1.1;
+    text-shadow:0 3px 12px rgba(113,45,0,.24);
+  }
+
+  .stat.qingan-primary .u{
+    position:relative;
+    z-index:1;
+    margin-top:8px;
+    color:rgba(255,255,255,.88);
+    font-weight:800;
+  }
+
+  .stat.qingan-primary::before{
+    content:"新青安3.0主額度";
+    top:12px;
+    right:12px;
+    padding:5px 9px;
+    background:rgba(117,44,0,.22);
+    border:1px solid rgba(255,255,255,.24);
+    box-shadow:0 5px 12px rgba(102,41,0,.12);
+  }
+
+  @media (max-width:640px){
+    .stat.qingan-primary{
+      min-height:142px;
+      padding:20px 16px 16px;
+    }
+
+    .stat.qingan-primary .k{
+      font-size:15px;
+    }
+
+    .stat.qingan-primary .v{
+      font-size:30px;
+    }
+  }
+
 </style>
 </head>
 <body>
@@ -1137,7 +1279,7 @@
             <div class="title-mark"></div>
             <div>
               <span class="eyebrow">BASIC PROFILE</span>
-              <h2>基本條件設定</h2>
+              <h2>新青安3.0｜基本條件設定</h2>
               <p>由大橘團隊整理主要申貸門檻，輸入後即可即時查看試算結果。</p>
             </div>
           </div>
@@ -1178,7 +1320,7 @@
 
       <section class="basic-fail-panel" id="basicFailPanel">
         <div class="basic-fail-icon">!</div>
-        <h2>很抱歉，你目前不符合新青安 3.0 條件</h2>
+        <h2>新青安3.0｜很抱歉，你目前不符合申請條件</h2>
         <p>
           不過每個人的購屋、賣屋與貸款狀況都不同，仍可請大橘團隊協助你評估一般房貸、
           換屋資金安排或其他適合的買屋方案。
@@ -1198,7 +1340,7 @@
             <div class="title-mark"></div>
             <div>
               <span class="eyebrow">PROPERTY DATA</span>
-              <h2>購屋條件設定</h2>
+              <h2>新青安3.0｜購屋條件設定</h2>
               <p>大橘團隊幫你把關重點條件，房價、鑑價與貸款年限都會直接影響試算結果。</p>
             </div>
           </div>
@@ -1258,7 +1400,7 @@
             <div class="title-mark"></div>
             <div>
               <span class="eyebrow">ELIGIBILITY</span>
-              <h2>資格檢查</h2>
+              <h2>新青安3.0｜資格檢查</h2>
               <p>大橘團隊即時幫你核對核心門檻，快速判斷是否落在可申貸範圍。</p>
             </div>
           </div>
@@ -1278,27 +1420,32 @@
               <div class="title-mark"></div>
               <div>
                 <span class="eyebrow">LOAN OVERVIEW</span>
-                <h2>可貸額度概覽</h2>
-                <p>大橘團隊以房價／鑑價較低者估算 8 成，再與身分額度上限交叉比較。</p>
+                <h2>新青安3.0｜貸款組成概覽</h2>
+                <p>先估算總貸款 8 成，再拆分為新青安優惠貸款、一般房貸與自備款。</p>
               </div>
             </div>
           </div>
 
           <div class="stats">
-            <div class="stat result-card">
-              <span class="k">可貸金額</span>
+            <div class="stat result-card qingan-primary">
+              <span class="k">新青安可貸金額</span>
               <div class="v" id="loanAmt">—</div>
-              <div class="u" id="loanNote"></div>
+              <div class="u" id="loanNote">優惠利率適用部分</div>
+            </div>
+            <div class="stat result-card">
+              <span class="k">一般房貸估算</span>
+              <div class="v" id="generalLoan">—</div>
+              <div class="u">補足總貸款 8 成的差額</div>
             </div>
             <div class="stat result-card">
               <span class="k">自備款需求</span>
               <div class="v" id="downPay">—</div>
-              <div class="u">總價 − 預估可貸金額</div>
+              <div class="u">房屋總價 − 預估總貸款</div>
             </div>
             <div class="stat result-card">
-              <span class="k">實際成數</span>
+              <span class="k">總貸款成數</span>
               <div class="v" id="ltv">—</div>
-              <div class="u">試算上限 8 成</div>
+              <div class="u" id="ltvBreakdown">新青安＋一般房貸</div>
             </div>
           </div>
           <div class="mini-note" id="capHint"></div>
@@ -1310,10 +1457,15 @@
               <div class="title-mark"></div>
               <div>
                 <span class="eyebrow">MONTHLY PAYMENT</span>
-                <h2>每月繳款試算</h2>
-                <p>大橘團隊依利率退場節奏逐段重算，協助你掌握各時期可能的月付變化。</p>
+                <h2>新青安3.0｜每月繳款試算</h2>
+                <p>以下只計算新青安優惠貸款部分；一般房貸因各銀行利率與核貸條件不同，不列入本表。</p>
               </div>
             </div>
+          </div>
+
+          <div class="callout" id="monthlyScopeNote" style="margin-bottom:14px">
+            <div class="callout-icon">%</div>
+            <p id="monthlyScopeText">本次試算的新青安額度為 —，一般房貸部分不納入月付計算。</p>
           </div>
 
           <div class="table-shell">
@@ -1437,31 +1589,54 @@ function monthLabel(from, to) {
 
 
 
-function animateValue(el, end, formatter, duration = 520) {
+function animateValue(el, end, formatter, duration = 420) {
   if (!el) return;
-  const start = Number(el.dataset.prevValue || 0);
-  const finalValue = Number.isFinite(end) ? end : 0;
-  const startTime = performance.now();
+
+  // 取消同一元素前一次尚未完成的動畫，避免舊結果覆蓋最新輸入。
+  if (el._valueAnimationFrame) {
+    cancelAnimationFrame(el._valueAnimationFrame);
+  }
+
+  const finalValue = Number.isFinite(Number(end)) ? Number(end) : 0;
+  const currentTarget = Number(el.dataset.targetValue);
+  const start = Number.isFinite(currentTarget)
+    ? currentTarget
+    : Number(el.dataset.prevValue || 0);
+
+  el.dataset.targetValue = String(finalValue);
+  const animationToken = String(Date.now()) + Math.random();
+  el.dataset.animationToken = animationToken;
 
   if (Math.abs(finalValue - start) < 0.5) {
     el.textContent = formatter(finalValue);
-    el.dataset.prevValue = finalValue;
+    el.dataset.prevValue = String(finalValue);
+    el.dataset.targetValue = String(finalValue);
+    el._valueAnimationFrame = null;
     return;
   }
 
+  const startTime = performance.now();
+
   function frame(now) {
+    // 只允許最新一輪動畫更新畫面。
+    if (el.dataset.animationToken !== animationToken) return;
+
     const progress = Math.min((now - startTime) / duration, 1);
     const eased = 1 - Math.pow(1 - progress, 3);
     const value = start + (finalValue - start) * eased;
     el.textContent = formatter(value);
+
     if (progress < 1) {
-      requestAnimationFrame(frame);
+      el._valueAnimationFrame = requestAnimationFrame(frame);
     } else {
-      el.dataset.prevValue = finalValue;
       el.textContent = formatter(finalValue);
+      el.dataset.prevValue = String(finalValue);
+      el.dataset.targetValue = String(finalValue);
+      el._valueAnimationFrame = null;
     }
   }
-  requestAnimationFrame(frame);
+
+  el._valueAnimationFrame = requestAnimationFrame(frame);
 }
 
 function animateResultCards() {
@@ -1596,21 +1771,42 @@ function render() {
   }
 
   const collateralBase = appraisal === null ? price : Math.min(price, appraisal);
-  const byLtv = collateralBase * 0.8;
-  const loanWan = Math.min(byLtv, famCap);
-  const capped = byLtv > famCap;
 
-  animateValue($('loanAmt'), loanWan, v => fmtWan(v));
+  // 先估算總貸款 8 成，再拆分新青安與一般房貸。
+  const totalLoanWan = collateralBase * 0.8;
+  const qinganLoanWan = Math.min(totalLoanWan, famCap);
+  const generalLoanWan = Math.max(0, totalLoanWan - qinganLoanWan);
+  const downPaymentWan = Math.max(0, price - totalLoanWan);
+  const totalLtv = price > 0 ? (totalLoanWan / price * 100) : 0;
+  const qinganRatio = price > 0 ? (qinganLoanWan / price * 100) : 0;
+  const generalRatio = price > 0 ? (generalLoanWan / price * 100) : 0;
+  const capped = totalLoanWan > famCap;
+
+  animateValue($('loanAmt'), qinganLoanWan, v => fmtWan(v));
+  animateValue($('generalLoan'), generalLoanWan, v => fmtWan(v));
+  animateValue($('downPay'), downPaymentWan, v => fmtWan(v));
+  animateValue($('ltv'), totalLtv, v => Math.round(v) + '%');
+
   $('loanNote').textContent = capped
-    ? `受身分額度上限 ${fmtWan(famCap)} 影響`
-    : (appraisal === null ? '尚未鑑價，先以房屋總價試算' : '依房價／鑑價較低者試算');
-  animateValue($('downPay'), Math.max(0, price - loanWan), v => fmtWan(v));
-  animateValue($('ltv'), price > 0 ? (loanWan / price * 100) : 0, v => Math.round(v) + '%');
-  $('capHint').textContent = capped
-    ? `${appraisal === null ? '目前先以房屋總價' : '依房價與鑑價較低者'}估算，8 成約為 ${fmtWan(byLtv)}；但你的優惠額度上限為 ${fmtWan(famCap)}，超出部分需另以自備款或一般房貸處理。`
-    : `${appraisal === null ? '尚未填入銀行鑑價，目前先以房屋總價' : '本頁以房屋總價與銀行鑑價較低者'}作為試算基礎，約可估 8 成。`;
+    ? `優惠額度上限 ${fmtWan(famCap)}`
+    : '預估總貸款皆可由新青安涵蓋';
 
-  const loanNTD = loanWan * 10000;
+  $('ltvBreakdown').textContent = generalLoanWan > 0
+    ? `新青安約 ${qinganRatio.toFixed(1)}%＋一般房貸約 ${generalRatio.toFixed(1)}%`
+    : `新青安約 ${qinganRatio.toFixed(1)}%，無一般房貸差額`;
+
+  $('capHint').textContent =
+    `${appraisal === null ? '目前尚未填入銀行鑑價，先以房屋總價' : '依房屋總價與銀行鑑價較低者'} ${fmtWan(collateralBase)} 試算：`
+    + `預估總貸款為 ${fmtWan(totalLoanWan)}（約 ${totalLtv.toFixed(0)}%），`
+    + `其中新青安優惠貸款 ${fmtWan(qinganLoanWan)}、一般房貸約 ${fmtWan(generalLoanWan)}，`
+    + `自備款約 ${fmtWan(downPaymentWan)}。實際總成數與一般房貸額度仍以銀行核定為準。`;
+
+  $('monthlyScopeText').textContent =
+    `本次月付表僅試算新青安優惠貸款 ${fmtWan(qinganLoanWan)}；`
+    + `${generalLoanWan > 0 ? `另有一般房貸約 ${fmtWan(generalLoanWan)}，` : ''}`
+    + `因各銀行利率與條件不同，不納入下方月付及總利息計算。`;
+
+  const loanNTD = qinganLoanWan * 10000;
   const { groups, totalInterest } = simulate(loanNTD, years, grace);
 
   $('schedBody').innerHTML = groups.map((gp, i) => `
@@ -1632,7 +1828,7 @@ function render() {
   const bw = $('burdenWarn');
   if (income > 0 && burden > 1 / 3) {
     bw.style.display = '';
-    bw.textContent = `負擔率提醒：以最高月付 ${fmt(maxPay)} 元估算，約占你年所得的 ${(burden * 100).toFixed(0)}%。若負擔率偏高，銀行實務上可能調整成數、縮減額度，或要求補強財力。`;
+    bw.textContent = `新青安部分負擔率提醒：僅以新青安最高月付 ${fmt(maxPay)} 元估算，約占你年所得的 ${(burden * 100).toFixed(0)}%。若負擔率偏高，銀行實務上可能調整成數、縮減額度，或要求補強財力。`;
   } else {
     bw.style.display = 'none';
   }
@@ -1641,8 +1837,22 @@ function render() {
 }
 
 ['age', 'income', 'price', 'appraisal', 'years', 'grace'].forEach(id => {
-  $(id).addEventListener('input', render);
+  const el = $(id);
+  if (!el) return;
+
+  const rerender = () => {
+    // 下一個畫面更新週期執行，確保手機鍵盤、貼上與數字輸入已完成寫入。
+    requestAnimationFrame(render);
+  };
+
+  ['input', 'change', 'keyup', 'paste'].forEach(eventName => {
+    el.addEventListener(eventName, rerender);
+  });
 });
+
+
+$('price').addEventListener('blur', render);
+$('appraisal').addEventListener('blur', render);
 
 ['homeSeg', 'famSeg', 'citySeg'].forEach(segId => {
   document.querySelectorAll('#' + segId + ' button').forEach(btn => {
