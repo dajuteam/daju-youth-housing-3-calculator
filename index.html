@@ -1382,6 +1382,94 @@
     }
   }
 
+
+  .general-loan-panel{
+    margin-top:28px;
+    padding:20px;
+    background:linear-gradient(180deg,#fff8f1 0%,#fffdfb 100%);
+    border:1px solid rgba(245,130,32,.16);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.85);
+  }
+
+  .general-loan-panel::before{
+    content:"";
+    display:block;
+    width:46px;
+    height:4px;
+    margin:0 0 14px;
+    border-radius:999px;
+    background:linear-gradient(90deg,#f58220,#ffc078);
+  }
+
+  .combined-payment{
+    margin-top:16px;
+    padding:16px;
+    border:1px solid rgba(245,130,32,.18);
+    background:linear-gradient(180deg,#fff,#fff8f1);
+    color:#343a40;
+    box-shadow:none;
+    align-items:flex-start;
+  }
+
+  .combined-payment .label{
+    color:#9a5a24;
+  }
+
+  .combined-payment .value{
+    color:#e56f13;
+    font-size:25px;
+  }
+
+  .combined-payment .breakdown{
+    color:#76665d;
+  }
+
+  .combined-stage-list{
+    display:grid;
+    gap:8px;
+    margin-top:14px;
+  }
+
+  .combined-stage-row{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) auto;
+    gap:12px;
+    align-items:center;
+    padding:10px 12px;
+    border-radius:13px;
+    background:rgba(255,255,255,.78);
+    border:1px solid rgba(245,130,32,.11);
+  }
+
+  .combined-stage-row .period{
+    color:#6f625a;
+    font-size:12px;
+    font-weight:850;
+    line-height:1.45;
+  }
+
+  .combined-stage-row .amount{
+    color:#d96510;
+    font-size:15px;
+    font-weight:950;
+    white-space:nowrap;
+  }
+
+  @media (max-width:640px){
+    .general-loan-panel{
+      margin-top:22px;
+      padding:16px;
+    }
+
+    .combined-payment{
+      padding:14px;
+    }
+
+    .combined-stage-row{
+      padding:9px 10px;
+    }
+  }
+
 </style>
 </head>
 <body>
@@ -1630,7 +1718,7 @@
           <div class="general-loan-panel" id="generalLoanPanel">
             <div class="subhead">
               <div>
-                <h3>新青安3.0｜剩餘一般房貸每月繳款試算</h3>
+                <h3>剩餘一般房貸每月繳款試算</h3>
                 <p>此區為選填估算，自動帶入上方一般房貸金額；實際利率與核貸條件仍以各銀行為準。</p>
               </div>
               <span class="optional-badge">選填</span>
@@ -1657,13 +1745,14 @@
             </div>
 
             <div class="combined-payment">
-              <div>
-                <div class="label">新青安＋一般房貸｜初估每月總還款</div>
+              <div style="width:100%">
+                <div class="label">新青安＋一般房貸｜各期間初估每月總還款</div>
                 <div class="value" id="combinedMonthly">—</div>
-              </div>
-              <div class="breakdown" id="combinedBreakdown">
-                新青安部分 —<br>
-                一般房貸部分 —
+                <div class="breakdown" id="combinedBreakdown" style="text-align:left;margin-top:7px">
+                  新青安部分 —<br>
+                  一般房貸部分 —
+                </div>
+                <div class="combined-stage-list" id="combinedStageList"></div>
               </div>
             </div>
           </div>
@@ -2016,15 +2105,45 @@ function render() {
 
   const generalRate = Math.max(0.1, Number($('generalRate')?.value || 2.8));
   const generalMonthly = calcMonthlyPayment(generalLoanWan * 10000, generalRate, years);
-  const combinedMonthly = firstPay + generalMonthly;
+
+  // 依新青安試算產生的各期間，逐段加上一般房貸固定月付。
+  const combinedStages = groups.map(gp => ({
+    label: monthLabel(gp.from, gp.to),
+    qingan: gp.pay,
+    general: generalMonthly,
+    total: gp.pay + generalMonthly,
+    grace: gp.grace
+  }));
+
+  const firstCombined = combinedStages.length ? combinedStages[0].total : generalMonthly;
+  const highestCombined = combinedStages.length
+    ? Math.max(...combinedStages.map(item => item.total))
+    : generalMonthly;
 
   if ($('combinedMonthly')) {
-    animateValue($('combinedMonthly'), combinedMonthly, v => `${fmt(v)} 元／月`);
+    animateValue(
+      $('combinedMonthly'),
+      firstCombined,
+      v => `前期約 ${fmt(v)} 元／月`
+    );
   }
+
   if ($('combinedBreakdown')) {
     $('combinedBreakdown').innerHTML =
-      `新青安部分約 ${fmt(firstPay)} 元／月<br>`
-      + `一般房貸約 ${fmt(generalMonthly)} 元／月（${generalRate.toFixed(1)}%）`;
+      `一般房貸固定約 ${fmt(generalMonthly)} 元／月（${generalRate.toFixed(1)}%・${years} 年）`
+      + `<br>各期間會再加上上方對應的新青安月付；最高合計約 ${fmt(highestCombined)} 元／月。`;
+  }
+
+  if ($('combinedStageList')) {
+    $('combinedStageList').innerHTML = combinedStages.map(item => `
+      <div class="combined-stage-row">
+        <div class="period">
+          ${item.label}${item.grace ? '・新青安寬限期' : ''}
+          <br>新青安 ${fmt(item.qingan)}＋一般房貸 ${fmt(item.general)}
+        </div>
+        <div class="amount">${fmt(item.total)} 元／月</div>
+      </div>
+    `).join('');
   }
 
   animateValue($('firstPay'), firstPay, v => fmt(v) + ' 元');
