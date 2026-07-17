@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-B12GVVT2QJ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-B12GVVT2QJ');
-</script>
+  <!-- Google tag (gtag.js)｜大橘團隊預設追蹤碼，後續更新請保留 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-B12GVVT2QJ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-B12GVVT2QJ');
+  </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>大橘－新青安貸款與月付計算機</title>
@@ -1248,6 +1247,141 @@
     }
   }
 
+
+  .general-loan-panel{
+    margin-top:18px;
+    padding:18px;
+    border-radius:20px;
+    border:1px solid rgba(67,74,82,.12);
+    background:linear-gradient(180deg,#fff,#fffaf5);
+  }
+  .general-loan-panel .subhead{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:12px;
+    margin-bottom:14px;
+  }
+  .general-loan-panel .subhead h3{
+    margin:0;
+    color:#343a40;
+    font-size:18px;
+    line-height:1.35;
+    font-weight:950;
+  }
+  .general-loan-panel .subhead p{
+    margin:5px 0 0;
+    color:#7b6a60;
+    font-size:13px;
+    line-height:1.65;
+  }
+  .optional-badge{
+    flex:0 0 auto;
+    padding:5px 9px;
+    border-radius:999px;
+    background:#f3f4f5;
+    color:#697078;
+    font-size:11px;
+    font-weight:900;
+  }
+  .general-loan-grid{
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:12px;
+  }
+  .readonly-value{
+    min-height:48px;
+    display:flex;
+    align-items:center;
+    padding:0 14px;
+    border-radius:14px;
+    border:1px solid rgba(67,74,82,.12);
+    background:#f7f7f8;
+    color:#343a40;
+    font-weight:900;
+  }
+  .combined-payment{
+    margin-top:16px;
+    padding:18px;
+    border-radius:18px;
+    background:linear-gradient(135deg,#3e454d,#252a30);
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    box-shadow:0 16px 28px rgba(37,42,48,.18);
+  }
+  .combined-payment .label{
+    color:rgba(255,255,255,.72);
+    font-size:12px;
+    font-weight:900;
+    letter-spacing:.04em;
+  }
+  .combined-payment .value{
+    margin-top:3px;
+    font-size:28px;
+    font-weight:950;
+    line-height:1.1;
+  }
+  .combined-payment .breakdown{
+    text-align:right;
+    color:rgba(255,255,255,.72);
+    font-size:12px;
+    line-height:1.55;
+  }
+  @media (max-width:720px){
+    .general-loan-grid{grid-template-columns:1fr}
+    .combined-payment{align-items:flex-start;flex-direction:column}
+    .combined-payment .breakdown{text-align:left}
+  }
+
+
+  /* 手機與桌機共同精簡：移除英文眉標後縮小標題區間距 */
+  .section-head{
+    margin-bottom:14px;
+  }
+
+  .section-head .title-wrap{
+    align-items:flex-start;
+  }
+
+  /* 新青安3.0｜資格檢查：縮小每列上下留白 */
+  #checkList .check-item,
+  #checkList .check-row,
+  #checkList > div{
+    padding-top:9px;
+    padding-bottom:9px;
+    min-height:auto;
+  }
+
+  #checkList{
+    gap:7px;
+  }
+
+  @media (max-width:640px){
+    .section-head{
+      margin-bottom:11px;
+    }
+
+    .section-head h2{
+      margin-top:0;
+      line-height:1.3;
+    }
+
+    .section-head p{
+      margin-top:5px;
+      line-height:1.55;
+    }
+
+    #checkList .check-item,
+    #checkList .check-row,
+    #checkList > div{
+      padding-top:7px;
+      padding-bottom:7px;
+    }
+  }
+
 </style>
 </head>
 <body>
@@ -1278,8 +1412,7 @@
           <div class="title-wrap">
             <div class="title-mark"></div>
             <div>
-              <span class="eyebrow">BASIC PROFILE</span>
-              <h2>新青安3.0｜基本條件設定</h2>
+<h2>新青安3.0｜基本條件設定</h2>
               <p>由大橘團隊整理主要申貸門檻，輸入後即可即時查看試算結果。</p>
             </div>
           </div>
@@ -1339,8 +1472,7 @@
           <div class="title-wrap">
             <div class="title-mark"></div>
             <div>
-              <span class="eyebrow">PROPERTY DATA</span>
-              <h2>新青安3.0｜購屋條件設定</h2>
+<h2>新青安3.0｜購屋條件設定</h2>
               <p>大橘團隊幫你把關重點條件，房價、鑑價與貸款年限都會直接影響試算結果。</p>
             </div>
           </div>
@@ -1399,8 +1531,7 @@
           <div class="title-wrap">
             <div class="title-mark"></div>
             <div>
-              <span class="eyebrow">ELIGIBILITY</span>
-              <h2>新青安3.0｜資格檢查</h2>
+<h2>新青安3.0｜資格檢查</h2>
               <p>大橘團隊即時幫你核對核心門檻，快速判斷是否落在可申貸範圍。</p>
             </div>
           </div>
@@ -1419,8 +1550,7 @@
             <div class="title-wrap">
               <div class="title-mark"></div>
               <div>
-                <span class="eyebrow">LOAN OVERVIEW</span>
-                <h2>新青安3.0｜貸款組成概覽</h2>
+<h2>新青安3.0｜貸款組成概覽</h2>
                 <p>先估算總貸款 8 成，再拆分為新青安優惠貸款、一般房貸與自備款。</p>
               </div>
             </div>
@@ -1456,8 +1586,7 @@
             <div class="title-wrap">
               <div class="title-mark"></div>
               <div>
-                <span class="eyebrow">MONTHLY PAYMENT</span>
-                <h2>新青安3.0｜每月繳款試算</h2>
+<h2>新青安3.0｜每月繳款試算</h2>
                 <p>以下只計算新青安優惠貸款部分；一般房貸因各銀行利率與核貸條件不同，不列入本表。</p>
               </div>
             </div>
@@ -1497,6 +1626,48 @@
           </div>
 
           <div class="warnbox" id="burdenWarn" style="display:none"></div>
+
+          <div class="general-loan-panel" id="generalLoanPanel">
+            <div class="subhead">
+              <div>
+                <h3>新青安3.0｜剩餘一般房貸每月繳款試算</h3>
+                <p>此區為選填估算，自動帶入上方一般房貸金額；實際利率與核貸條件仍以各銀行為準。</p>
+              </div>
+              <span class="optional-badge">選填</span>
+            </div>
+
+            <div class="general-loan-grid">
+              <label class="field">
+                <span>一般房貸金額</span>
+                <div class="readonly-value" id="generalLoanAmountDisplay">—</div>
+              </label>
+
+              <label class="field">
+                <span>一般房貸年利率</span>
+                <div class="input-wrap">
+                  <input id="generalRate" type="number" min="0.1" max="20" step="0.1" value="2.8" inputmode="decimal">
+                  <span class="suffix">%</span>
+                </div>
+              </label>
+
+              <label class="field">
+                <span>一般房貸年限</span>
+                <div class="readonly-value" id="generalYearsDisplay">—</div>
+              </label>
+            </div>
+
+            <div class="combined-payment">
+              <div>
+                <div class="label">新青安＋一般房貸｜初估每月總還款</div>
+                <div class="value" id="combinedMonthly">—</div>
+              </div>
+              <div class="breakdown" id="combinedBreakdown">
+                新青安部分 —<br>
+                一般房貸部分 —
+              </div>
+            </div>
+          </div>
+
         </section>
       </div>
     </aside>
@@ -1700,6 +1871,18 @@ function renderLoveMarquees() {
   });
 }
 
+
+function calcMonthlyPayment(principal, annualRate, years) {
+  const p = Number(principal) || 0;
+  const y = Math.max(1, Number(years) || 1);
+  const monthlyRate = (Number(annualRate) || 0) / 100 / 12;
+  const months = y * 12;
+  if (p <= 0) return 0;
+  if (monthlyRate <= 0) return p / months;
+  return p * monthlyRate * Math.pow(1 + monthlyRate, months)
+    / (Math.pow(1 + monthlyRate, months) - 1);
+}
+
 function render() {
   const age = Number($('age').value);
   const income = Number($('income').value);
@@ -1806,6 +1989,17 @@ function render() {
     + `${generalLoanWan > 0 ? `另有一般房貸約 ${fmtWan(generalLoanWan)}，` : ''}`
     + `因各銀行利率與條件不同，不納入下方月付及總利息計算。`;
 
+  const generalLoanPanel = $('generalLoanPanel');
+  if (generalLoanPanel) {
+    generalLoanPanel.style.display = generalLoanWan > 0 ? '' : 'none';
+  }
+  if ($('generalLoanAmountDisplay')) {
+    $('generalLoanAmountDisplay').textContent = fmtWan(generalLoanWan);
+  }
+  if ($('generalYearsDisplay')) {
+    $('generalYearsDisplay').textContent = `${years} 年`;
+  }
+
   const loanNTD = qinganLoanWan * 10000;
   const { groups, totalInterest } = simulate(loanNTD, years, grace);
 
@@ -1819,6 +2013,19 @@ function render() {
 
   const firstPay = groups.length ? groups[0].pay : 0;
   const maxPay = groups.length ? Math.max(...groups.map(g => g.pay)) : 0;
+
+  const generalRate = Math.max(0.1, Number($('generalRate')?.value || 2.8));
+  const generalMonthly = calcMonthlyPayment(generalLoanWan * 10000, generalRate, years);
+  const combinedMonthly = firstPay + generalMonthly;
+
+  if ($('combinedMonthly')) {
+    animateValue($('combinedMonthly'), combinedMonthly, v => `${fmt(v)} 元／月`);
+  }
+  if ($('combinedBreakdown')) {
+    $('combinedBreakdown').innerHTML =
+      `新青安部分約 ${fmt(firstPay)} 元／月<br>`
+      + `一般房貸約 ${fmt(generalMonthly)} 元／月（${generalRate.toFixed(1)}%）`;
+  }
 
   animateValue($('firstPay'), firstPay, v => fmt(v) + ' 元');
   animateValue($('maxPay'), maxPay, v => fmt(v) + ' 元');
@@ -1836,7 +2043,7 @@ function render() {
   animateResultCards();
 }
 
-['age', 'income', 'price', 'appraisal', 'years', 'grace'].forEach(id => {
+['age', 'income', 'price', 'appraisal', 'years', 'grace', 'generalRate'].forEach(id => {
   const el = $(id);
   if (!el) return;
 
